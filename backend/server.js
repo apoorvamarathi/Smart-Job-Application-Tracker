@@ -1,8 +1,43 @@
-const express = require("express");
-require("./db");
+const express = require("express")
+const cors = require("cors")
+const mongoose = require("mongoose")
+require("dotenv").config()
+const conntectDB = require("./config/db")
 
-const app = express();
+const uploadRoutes = require("./routes/upload")
+const analyzeRoutes = require("./routes/analyze")
 
-app.listen(5000, () => {
-  console.log("Server running");
-});
+const app = express()
+
+app.use(cors())
+app.use(express.json())
+
+app.use("/api",uploadRoutes)
+app.use("/api",analyzeRoutes)
+
+
+
+
+
+mongoose.connect(process.env.MONGO_URI)
+.then(()=>{
+ console.log("MongoDB connected")
+})
+.catch((err)=>{
+ console.log(err)
+})
+
+app.get("/", (req,res)=>{
+ res.send("Server running")
+})
+
+app.listen(process.env.PORT || 5000, ()=>{
+ console.log("Server started")
+})
+
+
+//Ub5QLcyaqbQZN8xH
+//apoorvamarathi_db_user
+
+
+
