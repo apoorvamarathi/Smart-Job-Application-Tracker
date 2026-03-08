@@ -31,7 +31,7 @@ app.get("/", (req,res)=>{
  res.send("Server running")
 })
 
-app.listen(process.env.PORT || 5000, ()=>{
+app.listen(process.env.PORT || 6000, ()=>{
  console.log("Server started")
 })
 

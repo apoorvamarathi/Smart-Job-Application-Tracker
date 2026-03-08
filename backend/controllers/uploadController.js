@@ -2,22 +2,44 @@ const Resume = require("../models/Resume")
 const parsePDF = require("../services/pdfParser")
 const extractSkills = require("../services/skillExtractor")
 
-exports.uploadResume = async(req,res)=>{
+exports.uploadResume = async (req, res) => {
 
- const filePath = req.file.path
+ try{
+    console.log(req.file)
+    console.log(req.body)
 
- const text = await parsePDF(filePath)
+  if(!req.file){
+   return res.status(400).json({
+    message:"No file uploaded"
+   })
+  }
 
- const skills = extractSkills(text)
+  const filePath = req.file.path
 
- const resume = await Resume.create({
-  userId:req.body.userId,
-  text,
-  skills
- })
+  const text = await parsePDF(filePath)
 
- res.json({
-  message:"Resume uploaded",
-  skills
- })
-}  
+  const skills = extractSkills(text)
+
+  const resume = await Resume.create({
+   userId:req.body.userId,
+   text,
+   skills
+  })
+
+  res.json({
+   message:"Resume uploaded successfully",
+   skills: skills,
+    file:req.file
+  })
+
+ }catch(error){
+
+  console.error(error)
+
+  res.status(500).json({
+   message:"Server error"
+  })
+
+ }
+
+}

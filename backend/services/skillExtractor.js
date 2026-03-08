@@ -6,9 +6,9 @@ const extractSkills = (text)=>{
     const  found = []
 
     skills.forEach(skill => {
-        if(text.toLowerCase().includes(skills)){
-            found.push(skill)
-        }
+       if (text.toLowerCase().includes(skill)) {
+    found.push(skill);
+}
     })
     return found
 }
