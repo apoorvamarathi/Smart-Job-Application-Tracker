@@ -1,43 +1,33 @@
-const express = require("express")
-const cors = require("cors")
-const mongoose = require("mongoose")
-require("dotenv").config()
-const conntectDB = require("./config/db")
+const express = require('express');
+const dotenv = require('dotenv');
+const cors = require('cors');
+const { errorHandler } = require('./middleware/errorMiddleware');
 
-const uploadRoutes = require("./routes/upload")
-const analyzeRoutes = require("./routes/analyze")
+dotenv.config();
 
-const app = express()
+const connectDB = require('./config/db');
+connectDB();
 
-app.use(cors())
-app.use(express.json())
+const app = express();
 
-app.use("/api",uploadRoutes)
-app.use("/api",analyzeRoutes)
+// Middleware
+app.use(cors());
+app.use(express.json()); // to accept JSON data
 
+// Routes
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/profile', require('./routes/profileRoutes'));
+app.use('/api/jobs', require('./routes/jobRoutes'));
+app.use('/api/applications', require('./routes/applicationRoutes'));
+app.use('/api/notifications', require('./routes/notificationRoutes'));
 
+// Base route
+app.get('/', (req, res) => {
+  res.send('API is running...');
+});
 
+// Error handling middleware (should be last)
+app.use(errorHandler);
 
-
-mongoose.connect(process.env.MONGO_URI)
-.then(()=>{
- console.log("MongoDB connected")
-})
-.catch((err)=>{
- console.log(err)
-})
-
-app.get("/", (req,res)=>{
- res.send("Server running")
-})
-
-app.listen(process.env.PORT || 6000, ()=>{
- console.log("Server started")
-})
-
-
-//Ub5QLcyaqbQZN8xH
-//apoorvamarathi_db_user
-
-
-
+const PORT = process.env.PORT || 6000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

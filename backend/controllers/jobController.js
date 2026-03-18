@@ -13,6 +13,11 @@ const createJob = async (req,res)=>{
     res.status(201).json(job);
 };
 
+const getJobs = async (req, res) => {
+  const jobs = await Job.find({}).sort({ createdAt: -1 });
+  res.json(jobs);
+};
+
 const getJobById = async (req,res)=>{
     const job = await Job.findById(req.params.id);
     if(job){
@@ -34,7 +39,7 @@ const updateJob = async(req,res)=>{
     res.json(updateJob);
 };
 
-const deletJob = async(req,res)=>{
+const deleteJob = async(req,res)=>{
     const job = await Job.findById(req.params.id);
     if(!job){
         return res.status(404).json({message:"Job not found"});

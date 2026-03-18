@@ -1,11 +1,14 @@
-const mongoose = require("mongoose");
+// require("dotenv").config();
+// const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://127.0.0.1:27017/jobTracker")
-.then(() => {
-    console.log("Database connected");
-})
-.catch((err) => {
-    console.log(err);
-});
+// const connectDB = async () => {
+//     try {
+//         await mongoose.connect(process.env.MONGO_URI);
+//         console.log("Database connected");
+//     } catch (err) {
+//         console.log(err);
+//         process.exit(1);
+//     }
+// };
 
- 
+// module.exports = connectDB;
