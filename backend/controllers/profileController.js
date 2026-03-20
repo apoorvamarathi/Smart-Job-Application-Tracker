@@ -1,4 +1,4 @@
-const { profile } = require('console');
+
 const Profile = require('../models/Profile')
 
 const createProfile = async (req,res) =>{
@@ -13,7 +13,7 @@ const createProfile = async (req,res) =>{
 
     let profile = await Profile.findOne({userId:req.user._id});
     if(profile){
-        profile = await Profile.findByIdAndUpdate(
+        profile = await Profile.findOneAndUpdate(
             {userId:req.user._id},
             {$set:profileFields},
             {new:true}
@@ -26,7 +26,7 @@ const createProfile = async (req,res) =>{
 };
 
     const getMyProfile = async (req,res)=>{
-        const profile = await profile.findOne({userId:req.user._id}).populate('userId',['name','email']);
+        const profile = await Profile.findOne({userId:req.user._id}).populate('userId',['name','email']);
         if(!profile){
             return res.status(404).json({message:"Profile not found"});
         }
