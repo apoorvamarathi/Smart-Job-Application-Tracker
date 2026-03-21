@@ -9,7 +9,6 @@ import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import JobSearch from './components/JobSeeker/JobSearch';
 import JobDetails from './components/JobSeeker/JobDetails';
-import Profile from '../../backend/models/Profile';
 import ApplyJob from './components/JobSeeker/ApplyJob';
 import MyApplications from './components/JobSeeker/MyApplications';
 import ApplicationDetails from './components/JobSeeker/ApplicationDetails';
@@ -23,6 +22,7 @@ import RecruiterApprovals from './components/Admin/RecruiterApprovals';
 import Reports from './components/Admin/Reports';
 import PrivateRoute from './components/Layout/PrivateRoute';
 import NotificationsPage from './components/Notifications/NotificationsPage';
+import Profile from './components/JobSeeker/Profile';
 
 function App() {
   return (
@@ -40,7 +40,7 @@ function App() {
 
               {/* Protected routes - Job Seeker */}
               <Route element={<PrivateRoute roles={['jobseeker']} />}>
-                <Route path="/profile" element={<Profile />} />
+                <Route path="/profile" element={<Profile/>} />
                 <Route path="/apply/:jobId" element={<ApplyJob />} />
                 <Route path="/my-applications" element={<MyApplications />} />
                 <Route path="/applications/:id" element={<ApplicationDetails />} />
