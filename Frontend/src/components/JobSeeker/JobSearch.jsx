@@ -14,16 +14,17 @@ const JobSearch = () => {
   const fetchJobs = async () => {
     try {
       const { data } = await api.get('/jobs');
+      console.log(data);
       setJobs(data);
     } catch (err) {
       console.error(err);
     }
   };
 
-  const filteredJobs = jobs.filter(job =>
-    job.title.toLowerCase().includes(filters.title.toLowerCase()) &&
-    job.location?.toLowerCase().includes(filters.location.toLowerCase())
-  );
+const filteredJobs = (jobs || []).filter(job =>
+  (job.title || '').toLowerCase().includes(filters.title.toLowerCase()) &&
+  (job.location || '').toLowerCase().includes(filters.location.toLowerCase())
+);
 
   return (
     <div className="job-search">

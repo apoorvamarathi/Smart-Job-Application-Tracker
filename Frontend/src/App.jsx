@@ -23,6 +23,8 @@ import Reports from './components/Admin/Reports';
 import PrivateRoute from './components/Layout/PrivateRoute';
 import NotificationsPage from './components/Notifications/NotificationsPage';
 import Profile from './components/JobSeeker/Profile';
+import Navbar from './components/Layout/Navbar';
+import JobApplications from './components/Recruiter/JobApplications';
 
 function App() {
   return (
